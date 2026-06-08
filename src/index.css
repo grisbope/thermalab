@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: 'Rethink Sans', ui-sans-serif, system-ui, sans-serif;
+  background: #0a0f1e;
+}
+
+* {
+  box-sizing: border-box;
+  letter-spacing: 0;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(135deg, rgba(56, 189, 248, 0.08), transparent 28%),
+    linear-gradient(225deg, rgba(249, 115, 22, 0.08), transparent 26%),
+    #0a0f1e;
+  color: #f1f5f9;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+@keyframes thermal-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes heat-flow {
+  0% {
+    transform: translateX(-14px);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(18px);
+    opacity: 0.3;
+  }
+}
+
+.thermal-strip {
+  background: linear-gradient(90deg, #1e3a5f, #38bdf8, #f97316, #ef4444);
+  background-size: 220% 220%;
+  animation: thermal-shift 8s ease-in-out infinite;
+}
+
+.heat-flow {
+  animation: heat-flow 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
