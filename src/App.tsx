@@ -132,7 +132,7 @@ function Dashboard({
               Desarrollador
             </div>
             <p className="mt-3 text-lg font-bold tracking-tight text-slate-100">
-              Grismaldo Bone Jr.
+              Byron Esteban Velasco de la Cruz
             </p>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-slate-400">
@@ -316,7 +316,7 @@ export default function App() {
       <BottomTabBar activeView={activeView} onNavigate={setActiveView} />
       <footer className="mx-auto flex max-w-7xl flex-col gap-2 px-4 pb-6 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:px-6">
         <span>ThermaLab — Transferencia de calor</span>
-        <span>Grismaldo Bone Jr.</span>
+        <span>Byron Esteban Velasco de la Cruz</span>
       </footer>
     </div>
   );

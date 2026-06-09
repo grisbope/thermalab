@@ -2,7 +2,7 @@
 
 Laboratorio virtual de transferencia de calor para explorar conducción, convección y radiación de forma interactiva.
 
-**Desarrollador:** Grismaldo Bone Jr.
+**Desarrollador:** Byron Esteban Velasco de la Cruz
 
 La aplicación permite explorar conducción, convección y radiación con entradas modificables, fórmulas con valores sustituidos, gráficos científicos, diagramas SVG animados, historial de prácticas y exportación de resultados.
 
