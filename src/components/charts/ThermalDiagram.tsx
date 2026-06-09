@@ -53,10 +53,10 @@ const layerColor = (k: number): string => {
 export function ThermalDiagram({ type, conduction, convection, radiation }: ThermalDiagramProps) {
   const label =
     type === 'conduction'
-      ? 'Gradiente en pared plana'
+      ? 'Cómo baja la temperatura en la pared'
       : type === 'convection'
-        ? 'Intercambio superficie-fluido'
-        : 'Emision de superficie gris';
+        ? 'Intercambio superficie–fluido'
+        : 'Emisión de superficie gris';
 
   const conductionQ = Math.abs(conduction?.q ?? 0);
   const conductionDeltaT = Math.abs((conduction?.hotC ?? 80) - (conduction?.coldC ?? 20));
@@ -83,7 +83,7 @@ export function ThermalDiagram({ type, conduction, convection, radiation }: Ther
   const radiationLineCount = clamp(Math.round(2 + epsilon * 5), 2, 7);
 
   return (
-    <div className="rounded-lg border border-slate-700/70 bg-slate-950/50 p-4">
+    <div className="rounded-xl border border-slate-700/50 bg-slate-950/50 p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <p className="text-sm font-bold text-slate-100">{label}</p>
       </div>
@@ -144,16 +144,16 @@ export function ThermalDiagram({ type, conduction, convection, radiation }: Ther
               />
             ))}
             <text x="104" y="28" fill={heatColor(conduction?.hotC ?? 80)} fontSize="18" fontWeight="700">
-              {formatNumber(conduction?.hotC ?? 0, 1)} C
+              {formatNumber(conduction?.hotC ?? 0, 1)} °C
             </text>
-            <text x={wallEnd - 72} y="28" fill={heatColor(conduction?.coldC ?? 20)} fontSize="18" fontWeight="700">
-              {formatNumber(conduction?.coldC ?? 0, 1)} C
+            <text x={wallEnd - 82} y="28" fill={heatColor(conduction?.coldC ?? 20)} fontSize="18" fontWeight="700">
+              {formatNumber(conduction?.coldC ?? 0, 1)} °C
             </text>
             <text x="475" y="216" fill="#fed7aa" fontSize="15" fontWeight="700">
               Q {formatNumber(conduction?.q ?? 0, 1)} W
             </text>
             <text x="108" y="216" fill="#cbd5e1" fontSize="13" fontWeight="700">
-              Delta T {formatNumber(conductionDeltaT, 1)} C
+              ΔT {formatNumber(conductionDeltaT, 1)} °C
             </text>
           </>
         )}
@@ -186,16 +186,16 @@ export function ThermalDiagram({ type, conduction, convection, radiation }: Ther
               />
             ))}
             <text x="96" y="45" fill={heatColor(convection?.surfaceC ?? 80)} fontSize="18" fontWeight="700">
-              {formatNumber(convection?.surfaceC ?? 0, 1)} C
+              {formatNumber(convection?.surfaceC ?? 0, 1)} °C
             </text>
             <text x="382" y="45" fill={heatColor(convection?.fluidC ?? 20)} fontSize="18" fontWeight="700">
-              Fluido {formatNumber(convection?.fluidC ?? 0, 1)} C
+              Fluido {formatNumber(convection?.fluidC ?? 0, 1)} °C
             </text>
             <text x="260" y="206" fill="#bae6fd" fontSize="15" fontWeight="700">
-              v {formatNumber(convectionVelocity, 2)} m/s - h {formatNumber(convectionH, 2)} W/m2 K
+              v {formatNumber(convectionVelocity, 2)} m/s · h {formatNumber(convectionH, 2)} W/m²·K
             </text>
             <text x="88" y="206" fill="#ddd6fe" fontSize="14" fontWeight="700">
-              {convection?.regime ?? 'Regimen'}
+              {convection?.regime ?? 'Régimen'}
             </text>
           </>
         )}
@@ -231,13 +231,13 @@ export function ThermalDiagram({ type, conduction, convection, radiation }: Ther
               />
             ))}
             <text x="110" y="214" fill="#fed7aa" fontSize="16" fontWeight="700">
-              epsilon {formatNumber(epsilon, 3)}
+              ε {formatNumber(epsilon, 3)}
             </text>
             <text x="350" y="42" fill="#ddd6fe" fontSize="16" fontWeight="700">
               Q {formatNumber(radiation?.q ?? 0, 1)} W
             </text>
             <text x="340" y="214" fill="#bae6fd" fontSize="14" fontWeight="700">
-              {formatNumber(radiation?.surfaceC ?? 0, 1)} C hacia {formatNumber(radiation?.ambientC ?? 0, 1)} C
+              {formatNumber(radiation?.surfaceC ?? 0, 1)} °C → {formatNumber(radiation?.ambientC ?? 0, 1)} °C
             </text>
           </>
         )}

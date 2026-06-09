@@ -30,10 +30,13 @@ interface ConductionModuleProps {
 
 type Mode = 'flat' | 'multilayer';
 
+const INVALID = '—';
+const INPUT_ERROR = 'Revisa los valores ingresados.';
+
 const comparisonIds = ['copper', 'brick', 'fiberglass', 'polyurethane'];
 
 const selectClass =
-  'h-11 w-full rounded-md border border-slate-700 bg-slate-950/70 px-3 text-sm font-semibold text-slate-100';
+  'h-11 w-full rounded-lg border border-slate-700/80 bg-slate-950/70 px-3 text-sm font-semibold text-slate-100 transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/30';
 
 const numberFrom = (value: SimulationValue | undefined, fallback: number): number =>
   typeof value === 'number' && Number.isFinite(value) ? value : fallback;
@@ -44,7 +47,7 @@ const stringFrom = (value: SimulationValue | undefined, fallback: string): strin
 export function ConductionModule({ loadedSimulation, onLoaded, onSave }: ConductionModuleProps) {
   const [mode, setMode] = useState<Mode>('flat');
   const [practice, setPractice] = useState(FLAT_PRACTICE.name);
-  const [simulationName, setSimulationName] = useState('Conduccion - pared plana');
+  const [simulationName, setSimulationName] = useState('Conducción — pared plana');
   const [materialId, setMaterialId] = useState(FLAT_PRACTICE.materialId);
   const [length, setLength] = useState(FLAT_PRACTICE.length);
   const [area, setArea] = useState(FLAT_PRACTICE.area);
@@ -74,11 +77,11 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
 
   const material = getMaterial(materialId);
   const errors = [
-    validatePositive('Area', area),
+    validatePositive('Área', area),
     validatePositive('Espesor', length),
     validatePositive('Conductividad', material.k),
     validateCelsius('Temperatura caliente', hotC),
-    validateCelsius('Temperatura fria', coldC),
+    validateCelsius('Temperatura fría', coldC),
     ...layers.map((layer) => validatePositive(`Espesor ${layer.name}`, layer.L)),
   ].filter((message): message is string => Boolean(message));
 
@@ -114,7 +117,7 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
   const loadFlatPractice = () => {
     setMode('flat');
     setPractice(FLAT_PRACTICE.name);
-    setSimulationName('Conduccion - pared de ladrillo');
+    setSimulationName('Conducción — pared de ladrillo');
     setMaterialId(FLAT_PRACTICE.materialId);
     setLength(FLAT_PRACTICE.length);
     setArea(FLAT_PRACTICE.area);
@@ -125,7 +128,7 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
   const loadMultilayerPractice = () => {
     setMode('multilayer');
     setPractice(MULTILAYER_PRACTICE.name);
-    setSimulationName('Conduccion - aislamiento multicapa');
+    setSimulationName('Conducción — aislamiento multicapa');
     setArea(MULTILAYER_PRACTICE.area);
     setHotC(MULTILAYER_PRACTICE.hotC);
     setColdC(MULTILAYER_PRACTICE.coldC);
@@ -161,7 +164,7 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
 
   const saveActiveSimulation = () => {
     onSave({
-      name: simulationName.trim() || 'Simulacion de conduccion',
+      name: simulationName.trim() || 'Simulación de conducción',
       module: 'conduction',
       practice,
       parameters: exportData.parameters,
@@ -170,44 +173,44 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
   };
 
   return (
-    <div className="space-y-5">
+    <div className="animate-fade-in-up space-y-5">
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
           <Badge tone="warm">Ley de Fourier</Badge>
-          <h2 className="mt-3 text-2xl font-black text-slate-50">Modulo de conduccion</h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-400">
-            Estudia transferencia unidimensional, resistencia termica y efecto de aislamiento con datos en SI.
+          <h2 className="mt-3 text-2xl font-black text-slate-50">Módulo de conducción</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-400">
+            Estudia cómo el calor viaja a través de paredes, cuánto frena cada material y el efecto del aislamiento.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={loadFlatPractice}
-            className="inline-flex min-h-10 items-center gap-2 rounded-md border border-orange-300/40 bg-orange-400/12 px-3 py-2 text-sm font-semibold text-orange-100"
+            className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-orange-300/40 bg-orange-400/12 px-3 py-2 text-sm font-semibold text-orange-100 transition hover:bg-orange-400/20 active:scale-[0.98]"
           >
             <Box size={16} aria-hidden="true" />
-            P1 pared
+            Práctica 1
           </button>
           <button
             type="button"
             onClick={loadMultilayerPractice}
-            className="inline-flex min-h-10 items-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400/12 px-3 py-2 text-sm font-semibold text-cyan-100"
+            className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-cyan-300/40 bg-cyan-400/12 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/20 active:scale-[0.98]"
           >
             <Layers size={16} aria-hidden="true" />
-            P2 multicapa
+            Práctica 2
           </button>
         </div>
       </div>
 
       <div className="grid gap-5 xl:grid-cols-[minmax(320px,420px)_1fr]">
-        <Card title="Variables experimentales" subtitle={practice}>
+        <Card title="Variables de entrada" subtitle={practice}>
           <div className="space-y-4">
             <label className="block">
               <span className="mb-2 block text-sm font-semibold text-slate-200">
-                Nombre de simulacion
+                Nombre de la simulación
               </span>
               <input
-                className="h-11 w-full rounded-md border border-slate-700 bg-slate-950/70 px-3 text-sm text-slate-100"
+                className="h-11 w-full rounded-lg border border-slate-700/80 bg-slate-950/70 px-3 text-sm text-slate-100 transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/30"
                 value={simulationName}
                 onChange={(event) => setSimulationName(event.target.value)}
               />
@@ -217,10 +220,10 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
               <button
                 type="button"
                 onClick={() => setMode('flat')}
-                className={`min-h-10 rounded-md px-3 text-sm font-bold ${
+                className={`min-h-10 rounded-lg px-3 text-sm font-bold transition ${
                   mode === 'flat'
                     ? 'bg-orange-400/20 text-orange-100 ring-1 ring-orange-300/50'
-                    : 'bg-slate-800/70 text-slate-300'
+                    : 'bg-slate-800/70 text-slate-300 hover:bg-slate-800'
                 }`}
               >
                 Pared simple
@@ -228,10 +231,10 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
               <button
                 type="button"
                 onClick={() => setMode('multilayer')}
-                className={`min-h-10 rounded-md px-3 text-sm font-bold ${
+                className={`min-h-10 rounded-lg px-3 text-sm font-bold transition ${
                   mode === 'multilayer'
                     ? 'bg-cyan-400/20 text-cyan-100 ring-1 ring-cyan-300/50'
-                    : 'bg-slate-800/70 text-slate-300'
+                    : 'bg-slate-800/70 text-slate-300 hover:bg-slate-800'
                 }`}
               >
                 Multicapa
@@ -247,13 +250,13 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
                   <select className={selectClass} value={materialId} onChange={(event) => setMaterialId(event.target.value)}>
                     {MATERIALS.map((item) => (
                       <option key={item.id} value={item.id}>
-                        {item.name} - k={item.k} W/m K
+                        {item.name} — k={item.k} W/m·K
                       </option>
                     ))}
                   </select>
                 </label>
                 <SliderInput
-                  label="Espesor L"
+                  label="Espesor (L)"
                   value={length}
                   min={0.005}
                   max={1}
@@ -271,7 +274,7 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
                 {layers.map((layer, index) => (
                   <SliderInput
                     key={layer.name}
-                    label={`${layer.name} (k=${layer.k} W/m K)`}
+                    label={`${layer.name} (k=${layer.k} W/m·K)`}
                     value={layer.L}
                     min={0.005}
                     max={0.3}
@@ -285,14 +288,14 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
             )}
 
             <SliderInput
-              label="Area A"
+              label="Área (A)"
               value={area}
               min={0.01}
               max={30}
               step={0.01}
-              unit="m2"
+              unit="m²"
               onChange={setArea}
-              error={validatePositive('Area', area)}
+              error={validatePositive('Área', area)}
             />
             <SliderInput
               label="Temperatura caliente"
@@ -300,19 +303,19 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
               min={-50}
               max={500}
               step={1}
-              unit="C"
+              unit="°C"
               onChange={setHotC}
               error={validateCelsius('Temperatura caliente', hotC)}
             />
             <SliderInput
-              label="Temperatura fria"
+              label="Temperatura fría"
               value={coldC}
               min={-50}
               max={300}
               step={1}
-              unit="C"
+              unit="°C"
               onChange={setColdC}
-              error={validateCelsius('Temperatura fria', coldC)}
+              error={validateCelsius('Temperatura fría', coldC)}
             />
 
             <div className="flex flex-wrap gap-2 pt-2">
@@ -320,7 +323,7 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
                 type="button"
                 onClick={saveActiveSimulation}
                 disabled={errors.length > 0}
-                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-orange-300/40 bg-orange-500/18 px-3 py-2 text-sm font-semibold text-orange-100 transition hover:bg-orange-500/25 disabled:cursor-not-allowed disabled:opacity-45"
+                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-orange-300/40 bg-orange-500/18 px-3 py-2 text-sm font-semibold text-orange-100 transition hover:bg-orange-500/25 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45"
               >
                 <Save size={16} aria-hidden="true" />
                 Guardar
@@ -343,34 +346,34 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
           />
           <div className={`grid gap-4 ${mode === 'multilayer' ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
             <ResultCard
-              label="Transferencia de calor"
-              value={errors.length ? 'Revise' : formatNumber(qValue, 2)}
+              label="Calor transferido (Q)"
+              value={errors.length ? INVALID : formatNumber(qValue, 2)}
               unit={errors.length ? undefined : 'W'}
               tone="warm"
               interpretation={
                 errors.length
-                  ? 'Hay variables fuera del rango fisico permitido.'
-                  : `Equivale a ${formatNumber(Math.abs(qValue) / 1000, 3)} kW de potencia termica.`
+                  ? INPUT_ERROR
+                  : `Equivale a ${formatNumber(Math.abs(qValue) / 1000, 3)} kW de potencia térmica.`
               }
             />
             <ResultCard
-              label="Resistencia termica"
+              label="Resistencia térmica (R)"
               value={
                 errors.length
-                  ? 'Revise'
+                  ? INVALID
                   : formatNumber(mode === 'flat' ? flatResult?.resistance ?? 0 : multilayerResult?.totalResistance ?? 0, 4)
               }
               unit={errors.length ? undefined : 'K/W'}
               tone="cold"
-              interpretation="Mayor resistencia implica menor transferencia para el mismo gradiente."
+              interpretation="Si la pared frena más el calor, se transfiere menos con la misma diferencia de temperatura."
             />
             {mode === 'multilayer' && (
               <ResultCard
                 label="Aislamiento"
-                value={multilayerResult ? formatNumber(multilayerResult.efficiency, 2) : 'Revise'}
+                value={multilayerResult ? formatNumber(multilayerResult.efficiency, 2) : INVALID}
                 unit={multilayerResult ? '%' : undefined}
                 tone="rad"
-                interpretation="Reduccion de Q respecto a la pared de ladrillo sin aislante."
+                interpretation="Porcentaje de calor que deja de perderse al agregar aislamiento (respecto al ladrillo solo)."
               />
             )}
           </div>
@@ -378,28 +381,28 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
       </div>
 
       <div className="grid gap-5 xl:grid-cols-2">
-        <Card title="Perfil de temperatura" subtitle="T(x) lineal por resistencia termica">
+        <Card title="Perfil de temperatura" subtitle="Temperatura a lo largo de la pared">
           <TemperatureProfileChart
             data={(mode === 'flat' ? flatResult?.profile : multilayerResult?.profile) ?? []}
             series={[{ dataKey: 'temperatura', name: 'Temperatura', color: '#f97316' }]}
-            xLabel="Posicion x (m)"
-            yLabel="Temperatura (C)"
+            xLabel="Posición x (m)"
+            yLabel="Temperatura (°C)"
           />
         </Card>
-        <Card title="Comparacion entre materiales" subtitle="Misma geometria, diferente conductividad k">
+        <Card title="Comparación entre materiales" subtitle="Misma geometría, distinta conductividad (k)">
           <ComparisonBarChart data={comparisonData} dataKey="q" name="Q (W)" color="#38bdf8" />
         </Card>
       </div>
 
-      <Card title="Formula activa" subtitle={mode === 'flat' ? FLAT_PRACTICE.objective : MULTILAYER_PRACTICE.objective}>
+      <Card title="Fórmula activa" subtitle={mode === 'flat' ? FLAT_PRACTICE.objective : MULTILAYER_PRACTICE.objective}>
         {mode === 'flat' ? (
           <FormulaDisplay
             title="Pared plana simple"
             formula="Q = (k * A * (T_caliente - T_fria)) / L"
             substituted={`Q = (${formatNumber(material.k)} * ${formatNumber(area)} * (${formatNumber(hotC)} - ${formatNumber(
               coldC,
-            )})) / ${formatNumber(length)} = ${errors.length ? 'entrada no valida' : `${formatNumber(qValue, 2)} W`}`}
-            note="Con los valores de la practica P1, la formula produce 432 W; 43.2 W requeriria A=1 m2 o un delta T diez veces menor."
+            )})) / ${formatNumber(length)} = ${errors.length ? 'valores no válidos' : `${formatNumber(qValue, 2)} W`}`}
+            note="Con los valores de la práctica 1, la fórmula produce 432 W. Un resultado de 43,2 W requeriría A=1 m² o una diferencia de temperatura diez veces menor."
           />
         ) : (
           <FormulaDisplay
@@ -408,9 +411,9 @@ export function ConductionModule({ loadedSimulation, onLoaded, onSave }: Conduct
             substituted={`R_total = ${formatNumber(multilayerResult?.totalResistance ?? 0, 4)} K/W; Q = (${formatNumber(
               hotC,
             )} - ${formatNumber(coldC)}) / R_total = ${
-              errors.length ? 'entrada no valida' : `${formatNumber(qValue, 2)} W`
+              errors.length ? 'valores no válidos' : `${formatNumber(qValue, 2)} W`
             }`}
-            note="Las capas estan en serie, por eso las resistencias termicas se suman."
+            note="Las capas están en serie, por eso las resistencias térmicas se suman."
           />
         )}
       </Card>

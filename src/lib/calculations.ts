@@ -28,7 +28,7 @@ export interface ForcedConvectionResult {
   re: number;
   nu: number;
   h: number;
-  regime: 'Laminar' | 'Transicion' | 'Turbulento';
+  regime: 'Laminar' | 'Transición' | 'Turbulento';
   validity: string;
 }
 
@@ -65,7 +65,7 @@ export const validateNonNegative = (label: string, value: number): string | null
   value >= 0 ? null : `${label} no puede ser negativo.`;
 
 export const validateCelsius = (label: string, value: number): string | null =>
-  value >= ABSOLUTE_ZERO_C ? null : `${label} no puede ser menor que -273.15 C.`;
+  value >= ABSOLUTE_ZERO_C ? null : `${label} no puede ser menor que -273,15 °C.`;
 
 export const validateEmissivity = (value: number): string | null =>
   value >= 0 && value <= 1 ? null : 'La emisividad debe estar entre 0 y 1.';
@@ -123,7 +123,7 @@ export const calculateMultilayerConduction = (
 
 export const reynoldsRegime = (re: number): ForcedConvectionResult['regime'] => {
   if (re < 5e5) return 'Laminar';
-  if (re < 1e7) return 'Transicion';
+  if (re < 1e7) return 'Transición';
   return 'Turbulento';
 };
 
@@ -145,8 +145,8 @@ export const calculateForcedConvection = (
   const q = h * area * (surfaceC - fluidC);
   const validity =
     regime === 'Laminar'
-      ? 'Correlacion laminar valida para Re < 5e5.'
-      : 'Correlacion turbulenta usada para comparacion; revisar rango experimental si Re esta en transicion.';
+      ? 'Correlación laminar válida para Re < 5×10⁵.'
+      : 'Correlación turbulenta usada para comparación; revisa el rango si Re está en transición.';
 
   return { q, re, nu, h, regime, validity };
 };
@@ -170,8 +170,8 @@ export const calculateNaturalConvectionAir = (
   const q = h * area * deltaT;
   const validity =
     ra >= 1e4 && ra <= 1e9
-      ? 'Correlacion natural valida para 1e4 < Ra < 1e9.'
-      : 'Ra fuera del rango recomendado 1e4 a 1e9; resultado orientativo.';
+      ? 'Correlación natural válida para 10⁴ < Ra < 10⁹.'
+      : 'Ra fuera del rango recomendado (10⁴ a 10⁹); resultado orientativo.';
 
   return { q, ra, nu, h, validity };
 };

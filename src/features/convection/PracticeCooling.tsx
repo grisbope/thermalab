@@ -1,6 +1,6 @@
 export const COOLING_PRACTICE = {
-  name: 'P1 Enfriamiento de placa metalica',
-  objective: 'Calcular h, Re, Nu y Q para una placa de acero expuesta a aire.',
+  name: 'Práctica 1: Enfriamiento de placa metálica',
+  objective: 'Calcular el calor transferido y los números adimensionales (Re, Nu, h) para una placa de acero en aire.',
   fluidId: 'air',
   velocity: 2,
   length: 0.3,

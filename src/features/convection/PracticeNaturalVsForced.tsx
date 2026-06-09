@@ -1,6 +1,6 @@
 export const NATURAL_FORCED_PRACTICE = {
-  name: 'P2 Natural vs forzada',
-  objective: 'Comparar conveccion natural con aire quieto contra flujo forzado a 5 m/s.',
+  name: 'Práctica 2: Natural vs forzada',
+  objective: 'Comparar convección natural (aire quieto) contra convección forzada a 5 m/s.',
   fluidId: 'air',
   velocity: 5,
   length: 0.3,

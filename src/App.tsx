@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  ArrowRight,
   BarChart3,
   CheckCircle2,
   Code2,
@@ -23,9 +24,9 @@ import { useSimulationHistory } from './hooks/useSimulationHistory';
 import type { Mechanism, NewSimulation, SavedSimulation, ViewId } from './types';
 
 const moduleLabel: Record<Mechanism, string> = {
-  conduction: 'Conduccion',
-  convection: 'Conveccion',
-  radiation: 'Radiacion',
+  conduction: 'Conducción',
+  convection: 'Convección',
+  radiation: 'Radiación',
 };
 
 const moduleTone: Record<Mechanism, 'warm' | 'cold' | 'rad'> = {
@@ -48,49 +49,49 @@ function Dashboard({
   const cards = [
     {
       id: 'conduction' as const,
-      title: 'Conduccion',
+      title: 'Conducción',
       icon: Flame,
       tone: 'warm' as const,
-      copy: 'Pared plana, capas en serie, resistencia termica y comparacion de materiales.',
+      copy: 'Pared simple, capas apiladas y cuánto frena el calor cada material.',
     },
     {
       id: 'convection' as const,
-      title: 'Conveccion',
+      title: 'Convección',
       icon: Waves,
       tone: 'cold' as const,
-      copy: 'Reynolds, Nusselt, coeficiente h y contraste entre natural y forzada.',
+      copy: 'Intercambio de calor entre una placa y el aire o fluido, natural y forzada.',
     },
     {
       id: 'radiation' as const,
-      title: 'Radiacion',
+      title: 'Radiación',
       icon: ThermometerSun,
       tone: 'rad' as const,
-      copy: 'Stefan-Boltzmann, cuerpo negro, superficies grises y emisividad.',
+      copy: 'Calor emitido por radiación: cuerpo negro, superficies reales y emisividad.',
     },
   ];
 
   return (
-    <div className="space-y-5">
-      <section className="rounded-lg border border-slate-800 bg-slate-950/72 p-5 backdrop-blur md:p-6">
+    <div className="animate-fade-in-up space-y-5">
+      <section className="overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950/72 p-5 backdrop-blur-sm md:p-6">
         <div className="thermal-strip mb-5 h-2 rounded-full" />
         <Badge tone="neutral">Laboratorio virtual</Badge>
         <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_320px] lg:items-end">
           <div>
-            <h2 className="text-3xl font-black text-slate-50 md:text-4xl">
+            <h2 className="text-3xl font-black tracking-tight text-slate-50 md:text-4xl">
               Explora la transferencia de calor en tiempo real
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
-              Conduccion, conveccion y radiacion en un solo panel: formulas visibles, datos reales, graficos
-              cientificos y practicas que puedes guardar y exportar.
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-400">
+              Conducción, convección y radiación en un solo panel. Ajusta valores, ve fórmulas con datos reales,
+              gráficos al instante y guarda tus prácticas.
             </p>
           </div>
           <button
             type="button"
             onClick={() => onNavigate('conduction')}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-cyan-400 px-4 py-3 text-sm font-black text-slate-950 transition hover:bg-cyan-300"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-black text-slate-950 shadow-[0_0_24px_rgba(56,189,248,0.25)] transition hover:bg-cyan-300 hover:shadow-[0_0_32px_rgba(56,189,248,0.35)] active:scale-[0.98]"
           >
             <BarChart3 size={18} aria-hidden="true" />
-            Iniciar practica
+            Iniciar práctica
           </button>
         </div>
       </section>
@@ -103,16 +104,20 @@ function Dashboard({
               key={card.id}
               type="button"
               onClick={() => onNavigate(card.id)}
-              className="rounded-lg border border-slate-800 bg-slate-950/72 p-5 text-left transition hover:border-cyan-300/50 hover:bg-slate-900/90"
+              className="group rounded-xl border border-slate-800/80 bg-slate-950/72 p-5 text-left transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-slate-900/90 hover:shadow-glow active:scale-[0.99]"
             >
               <div className="flex items-center justify-between gap-3">
-                <div className="grid size-11 place-items-center rounded-lg border border-slate-700 bg-slate-900">
+                <div className="grid size-11 place-items-center rounded-xl border border-slate-700/80 bg-slate-900 transition group-hover:border-cyan-300/30">
                   <Icon size={22} aria-hidden="true" />
                 </div>
                 <Badge tone={card.tone}>{card.title}</Badge>
               </div>
               <h3 className="mt-5 text-xl font-black text-slate-50">{card.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{card.copy}</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">{card.copy}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-cyan-300 opacity-0 transition group-hover:opacity-100">
+                Abrir módulo
+                <ArrowRight size={14} aria-hidden="true" />
+              </span>
             </button>
           );
         })}
@@ -122,7 +127,7 @@ function Dashboard({
         <div className="thermal-strip -mx-5 -mt-5 mb-5 h-1.5 md:-mx-5" />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-md border border-cyan-300/30 bg-cyan-400/10 px-3 py-1.5 text-sm font-bold text-cyan-100">
+            <div className="inline-flex items-center gap-2 rounded-lg border border-cyan-300/30 bg-cyan-400/10 px-3 py-1.5 text-sm font-bold text-cyan-100">
               <Code2 size={16} aria-hidden="true" />
               Desarrollador
             </div>
@@ -130,12 +135,11 @@ function Dashboard({
               Grismaldo Bone Jr.
             </p>
           </div>
-          <p className="max-w-sm text-sm leading-6 text-slate-400">
-            ThermaLab — herramienta educativa para visualizar mecanismos termicos sin hojas de calculo.
+          <p className="max-w-sm text-sm leading-relaxed text-slate-400">
+            ThermaLab — herramienta educativa para visualizar mecanismos térmicos sin hojas de cálculo.
           </p>
         </div>
       </Card>
-
     </div>
   );
 }
@@ -153,11 +157,11 @@ function HistoryView({
 }) {
   if (simulations.length === 0) {
     return (
-      <Card title="Historial de practicas" subtitle="Aun no hay simulaciones guardadas.">
-        <div className="flex min-h-52 flex-col items-center justify-center rounded-lg border border-dashed border-slate-700 p-6 text-center">
+      <Card title="Historial de prácticas" subtitle="Aún no hay simulaciones guardadas.">
+        <div className="flex min-h-52 flex-col items-center justify-center rounded-xl border border-dashed border-slate-700/80 p-6 text-center">
           <History size={36} className="text-slate-500" aria-hidden="true" />
-          <p className="mt-4 max-w-md text-sm text-slate-400">
-            Guarda una practica desde cualquier modulo para cargarla o descargar sus resultados despues.
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-400">
+            Guarda una práctica desde cualquier módulo para cargarla o exportar sus resultados después.
           </p>
         </div>
       </Card>
@@ -165,19 +169,19 @@ function HistoryView({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="animate-fade-in-up space-y-4">
       <div>
-        <Badge tone="neutral">Practicas guardadas</Badge>
-        <h2 className="mt-3 text-2xl font-black text-slate-50">Historial de practicas</h2>
-        <p className="mt-2 text-sm text-slate-400">
-          Edita nombres, carga parametros previos, elimina registros o exporta resultados.
+        <Badge tone="neutral">Prácticas guardadas</Badge>
+        <h2 className="mt-3 text-2xl font-black text-slate-50">Historial de prácticas</h2>
+        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+          Edita nombres, carga parámetros previos, elimina registros o exporta resultados.
         </p>
       </div>
       <div className="grid gap-4">
         {simulations.map((simulation) => (
           <article
             key={simulation.id}
-            className="rounded-lg border border-slate-800 bg-slate-950/72 p-4"
+            className="rounded-xl border border-slate-800/80 bg-slate-950/72 p-4 transition hover:border-slate-700"
           >
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div className="min-w-0 flex-1">
@@ -188,16 +192,17 @@ function HistoryView({
                   </span>
                 </div>
                 <input
-                  className="h-11 w-full rounded-md border border-slate-700 bg-slate-950/70 px-3 text-sm font-bold text-slate-100"
+                  className="h-11 w-full rounded-lg border border-slate-700/80 bg-slate-950/70 px-3 text-sm font-bold text-slate-100 transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/30"
                   value={simulation.name}
                   onChange={(event) => onNameChange(simulation.id, event.target.value)}
+                  aria-label="Nombre de la simulación"
                 />
                 <p className="mt-2 text-sm text-slate-400">{simulation.practice}</p>
                 <div className="mt-3 grid gap-2 font-mono text-xs text-slate-300 md:grid-cols-3">
                   {Object.entries(simulation.results)
                     .slice(0, 6)
                     .map(([key, value]) => (
-                      <span key={key} className="truncate rounded-md bg-slate-900 px-2 py-1">
+                      <span key={key} className="truncate rounded-md bg-slate-900/80 px-2 py-1">
                         {key}: {String(value)}
                       </span>
                     ))}
@@ -207,16 +212,16 @@ function HistoryView({
                 <button
                   type="button"
                   onClick={() => onLoad(simulation)}
-                  className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400/12 px-3 py-2 text-sm font-semibold text-cyan-100"
+                  className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-cyan-400/12 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/20 active:scale-[0.98]"
                 >
                   <FolderOpen size={16} aria-hidden="true" />
                   Cargar
                 </button>
-                <ExportButton filename={`${simulation.name || 'simulacion'}.json`} data={simulation} label="Descargar" />
+                <ExportButton filename={`${simulation.name || 'simulacion'}.json`} data={simulation} />
                 <button
                   type="button"
                   onClick={() => onDelete(simulation.id)}
-                  className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-red-300/40 bg-red-400/12 px-3 py-2 text-sm font-semibold text-red-100"
+                  className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-red-300/40 bg-red-400/12 px-3 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-400/20 active:scale-[0.98]"
                 >
                   <Trash2 size={16} aria-hidden="true" />
                   Eliminar
@@ -296,7 +301,11 @@ export default function App() {
     <div className="min-h-screen">
       <Header activeView={activeView} onNavigate={setActiveView} />
       {notice && (
-        <div className="fixed right-4 top-24 z-40 flex items-center gap-2 rounded-lg border border-emerald-300/40 bg-emerald-500/15 px-4 py-3 text-sm font-semibold text-emerald-100 shadow-glow">
+        <div
+          role="status"
+          aria-live="polite"
+          className="animate-fade-in-up fixed right-4 top-24 z-40 flex items-center gap-2 rounded-xl border border-emerald-300/40 bg-emerald-500/15 px-4 py-3 text-sm font-semibold text-emerald-100 shadow-glow backdrop-blur-sm"
+        >
           <CheckCircle2 size={16} aria-hidden="true" />
           {notice}
         </div>

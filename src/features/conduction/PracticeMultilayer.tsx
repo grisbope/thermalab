@@ -1,7 +1,7 @@
 import type { Layer } from '../../lib/calculations';
 
 export const MULTILAYER_PRACTICE = {
-  name: 'P2 Aislamiento multicapa',
+  name: 'Práctica 2: Aislamiento multicapa',
   objective: 'Comparar una pared sin aislamiento contra una pared con lana de roca.',
   area: 10,
   hotC: 30,

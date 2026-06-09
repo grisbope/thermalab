@@ -23,7 +23,7 @@ export function SliderInput({
     <label className="block">
       <div className="mb-2 flex items-center justify-between gap-3">
         <span className="text-sm font-semibold text-slate-200">{label}</span>
-        <span className="font-mono text-xs text-slate-400">{unit}</span>
+        <span className="rounded-md bg-slate-800/80 px-2 py-0.5 font-mono text-xs text-slate-400">{unit}</span>
       </div>
       <div className="grid grid-cols-[1fr_112px] items-center gap-3">
         <input
@@ -36,7 +36,7 @@ export function SliderInput({
           onChange={(event) => onChange(Number(event.target.value))}
         />
         <input
-          className="h-10 rounded-md border border-slate-700 bg-slate-950/70 px-3 text-right font-mono text-sm text-slate-100"
+          className="h-10 rounded-lg border border-slate-700/80 bg-slate-950/70 px-3 text-right font-mono text-sm text-slate-100 transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/30"
           type="number"
           min={min}
           max={max}

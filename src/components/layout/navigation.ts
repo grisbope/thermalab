@@ -7,8 +7,8 @@ export const NAV_ITEMS: Array<{
   icon: typeof Home;
 }> = [
   { id: 'dashboard', label: 'Panel', icon: Home },
-  { id: 'conduction', label: 'Conduccion', icon: Flame },
-  { id: 'convection', label: 'Conveccion', icon: Waves },
-  { id: 'radiation', label: 'Radiacion', icon: ThermometerSun },
+  { id: 'conduction', label: 'Conducción', icon: Flame },
+  { id: 'convection', label: 'Convección', icon: Waves },
+  { id: 'radiation', label: 'Radiación', icon: ThermometerSun },
   { id: 'history', label: 'Historial', icon: History },
 ];

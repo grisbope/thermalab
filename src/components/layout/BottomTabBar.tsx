@@ -9,8 +9,8 @@ interface BottomTabBarProps {
 export function BottomTabBar({ activeView, onNavigate }: BottomTabBarProps) {
   return (
     <nav
-      className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 gap-1 rounded-2xl border border-slate-700/80 bg-slate-950/92 p-1.5 shadow-2xl shadow-slate-950/60 backdrop-blur-xl md:hidden"
-      aria-label="Navegacion principal"
+      className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 gap-1 rounded-2xl border border-slate-700/80 bg-slate-950/95 p-1.5 shadow-2xl shadow-slate-950/60 backdrop-blur-xl md:hidden"
+      aria-label="Navegación principal"
     >
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;

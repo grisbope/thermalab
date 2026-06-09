@@ -1,16 +1,16 @@
 # ThermaLab
 
-Laboratorio virtual de transferencia de calor para explorar conduccion, conveccion y radiacion de forma interactiva.
+Laboratorio virtual de transferencia de calor para explorar conducción, convección y radiación de forma interactiva.
 
 **Desarrollador:** Grismaldo Bone Jr.
 
-La aplicacion permite explorar conduccion, conveccion y radiacion con entradas modificables, formulas con valores sustituidos, graficos cientificos, diagramas SVG animados, historial de practicas y descarga de resultados.
+La aplicación permite explorar conducción, convección y radiación con entradas modificables, fórmulas con valores sustituidos, gráficos científicos, diagramas SVG animados, historial de prácticas y exportación de resultados.
 
-## Demostracion en vivo
+## Demostración en vivo
 
 URL de Vercel: pendiente de publicar.
 
-## Tecnologias
+## Tecnologías
 
 - React 18.3.1
 - Vite 8.0.16
@@ -20,7 +20,7 @@ URL de Vercel: pendiente de publicar.
 - recharts 2.15.0
 - framer-motion 11.15.0
 
-## Instalacion
+## Instalación
 
 ```bash
 npm install
@@ -28,9 +28,9 @@ npm run dev
 npm run build
 ```
 
-## Formulas implementadas
+## Fórmulas implementadas
 
-### Conduccion
+### Conducción
 
 ```text
 Q = (k * A * (T_caliente - T_fria)) / L
@@ -40,9 +40,9 @@ Q_multicapa = (T_caliente - T_fria) / R_total
 eta = (1 - Q_aislada / Q_referencia) * 100
 ```
 
-Nota fisica: la practica P1 con ladrillo `k=0.72 W/m K`, `L=0.20 m`, `A=10 m2`, `T1=30 C` y `T2=18 C` produce `Q = 432 W`. Un resultado de `43.2 W` requeriria `A=1 m2` o un gradiente diez veces menor.
+Nota física: la práctica P1 con ladrillo `k=0.72 W/m·K`, `L=0.20 m`, `A=10 m²`, `T1=30 °C` y `T2=18 °C` produce `Q = 432 W`. Un resultado de `43,2 W` requeriría `A=1 m²` o una diferencia de temperatura diez veces menor.
 
-### Conveccion
+### Convección
 
 ```text
 Q = h * A * (T_superficie - T_fluido)
@@ -54,41 +54,41 @@ Ra = (9.81 * beta * DeltaT * L^3) / (nu * alpha)
 Nu_natural = 0.59 * Ra^0.25
 ```
 
-### Radiacion
+### Radiación
 
 ```text
-sigma = 5.670374419e-8 W/m2 K4
+sigma = 5.670374419e-8 W/m²·K⁴
 Q_rad = epsilon * sigma * A * (T_superficie^4 - T_ambiente^4)
 E_b = sigma * T^4
 ```
 
-Las temperaturas de radiacion se convierten internamente de Celsius a Kelvin.
+Las temperaturas de radiación se convierten internamente de Celsius a Kelvin.
 
 ## Datos incluidos
 
 ### Materiales
 
-Cobre, aluminio, acero inoxidable, hormigon, ladrillo, vidrio, madera de roble, fibra de vidrio, lana de roca, poliuretano y aire estatico.
+Cobre, aluminio, acero inoxidable, hormigón, ladrillo, vidrio, madera de roble, fibra de vidrio, lana de roca, poliuretano y aire estático.
 
 ### Fluidos
 
-Aire, agua, aceite, etanol y glicerina con densidad, viscosidad dinamica, conductividad y numero de Prandtl a 20 C.
+Aire, agua, aceite, etanol y glicerina con densidad, viscosidad dinámica, conductividad y número de Prandtl a 20 °C.
 
 ### Superficies
 
-Cuerpo negro ideal, pintura negra mate, piel humana, hormigon, ladrillo rojo, acero oxidado, acero pulido, aluminio pulido, cobre pulido, pintura blanca y papel de oro.
+Cuerpo negro ideal, pintura negra mate, piel humana, hormigón, ladrillo rojo, acero oxidado, acero pulido, aluminio pulido, cobre pulido, pintura blanca y papel de oro.
 
 ## Deploy en Vercel desde GitHub
 
 1. Crear un repositorio en GitHub y subir este proyecto.
 2. Entrar a Vercel y seleccionar `Add New Project`.
 3. Importar el repositorio.
-4. Mantener la configuracion detectada por Vercel:
+4. Mantener la configuración detectada por Vercel:
    - Framework: Vite
    - Build command: `npm run build`
    - Output directory: `dist`
 5. Hacer deploy.
-6. Copiar la URL generada y reemplazar el placeholder de la seccion "Demostracion en vivo".
+6. Copiar la URL generada y reemplazar el placeholder de la sección "Demostración en vivo".
 
 ## Licencia
 

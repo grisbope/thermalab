@@ -1,6 +1,6 @@
 export const FLAT_PRACTICE = {
-  name: 'P1 Pared plana simple',
-  objective: 'Verificar la ley de Fourier en una pared de ladrillo.',
+  name: 'Práctica 1: Pared plana simple',
+  objective: 'Comprobar cómo el calor atraviesa una pared de ladrillo (ley de Fourier).',
   materialId: 'brick',
   length: 0.2,
   area: 10,

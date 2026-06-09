@@ -29,8 +29,11 @@ interface ConvectionModuleProps {
   onSave: (simulation: NewSimulation) => void;
 }
 
+const INVALID = '—';
+const INPUT_ERROR = 'Revisa los valores ingresados.';
+
 const selectClass =
-  'h-11 w-full rounded-md border border-slate-700 bg-slate-950/70 px-3 text-sm font-semibold text-slate-100';
+  'h-11 w-full rounded-lg border border-slate-700/80 bg-slate-950/70 px-3 text-sm font-semibold text-slate-100 transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/30';
 
 const numberFrom = (value: SimulationValue | undefined, fallback: number): number =>
   typeof value === 'number' && Number.isFinite(value) ? value : fallback;
@@ -40,7 +43,7 @@ const stringFrom = (value: SimulationValue | undefined, fallback: string): strin
 
 export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: ConvectionModuleProps) {
   const [practice, setPractice] = useState(COOLING_PRACTICE.name);
-  const [simulationName, setSimulationName] = useState('Conveccion - placa metalica');
+  const [simulationName, setSimulationName] = useState('Convección — placa metálica');
   const [fluidId, setFluidId] = useState(COOLING_PRACTICE.fluidId);
   const [velocity, setVelocity] = useState(COOLING_PRACTICE.velocity);
   const [length, setLength] = useState(COOLING_PRACTICE.length);
@@ -65,8 +68,8 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
   const air = getFluid('air');
   const errors = [
     validateNonNegative('Velocidad', velocity),
-    validatePositive('Longitud caracteristica', length),
-    validatePositive('Area', area),
+    validatePositive('Longitud característica', length),
+    validatePositive('Área', area),
     validateCelsius('Temperatura superficial', surfaceC),
     validateCelsius('Temperatura del fluido', fluidC),
   ].filter((message): message is string => Boolean(message));
@@ -100,7 +103,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
 
   const loadCoolingPractice = () => {
     setPractice(COOLING_PRACTICE.name);
-    setSimulationName('Conveccion - placa con aire');
+    setSimulationName('Convección — placa con aire');
     setFluidId(COOLING_PRACTICE.fluidId);
     setVelocity(COOLING_PRACTICE.velocity);
     setLength(COOLING_PRACTICE.length);
@@ -111,7 +114,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
 
   const loadNaturalForcedPractice = () => {
     setPractice(NATURAL_FORCED_PRACTICE.name);
-    setSimulationName('Conveccion - natural vs forzada');
+    setSimulationName('Convección — natural vs forzada');
     setFluidId(NATURAL_FORCED_PRACTICE.fluidId);
     setVelocity(NATURAL_FORCED_PRACTICE.velocity);
     setLength(NATURAL_FORCED_PRACTICE.length);
@@ -150,7 +153,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
 
   const saveActiveSimulation = () => {
     onSave({
-      name: simulationName.trim() || 'Simulacion de conveccion',
+      name: simulationName.trim() || 'Simulación de convección',
       module: 'convection',
       practice,
       parameters: exportData.parameters,
@@ -159,44 +162,44 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
   };
 
   return (
-    <div className="space-y-5">
+    <div className="animate-fade-in-up space-y-5">
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
           <Badge tone="cold">Ley de Newton</Badge>
-          <h2 className="mt-3 text-2xl font-black text-slate-50">Modulo de conveccion</h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-400">
-            Calcula transferencia superficie-fluido, regimen de flujo y coeficiente convectivo estimado.
+          <h2 className="mt-3 text-2xl font-black text-slate-50">Módulo de convección</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-400">
+            Calcula cuánto calor intercambia una placa con el aire o el fluido, y si el flujo es laminar o turbulento.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={loadCoolingPractice}
-            className="inline-flex min-h-10 items-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400/12 px-3 py-2 text-sm font-semibold text-cyan-100"
+            className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-cyan-300/40 bg-cyan-400/12 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/20 active:scale-[0.98]"
           >
             <Wind size={16} aria-hidden="true" />
-            P1 placa
+            Práctica 1
           </button>
           <button
             type="button"
             onClick={loadNaturalForcedPractice}
-            className="inline-flex min-h-10 items-center gap-2 rounded-md border border-orange-300/40 bg-orange-400/12 px-3 py-2 text-sm font-semibold text-orange-100"
+            className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-orange-300/40 bg-orange-400/12 px-3 py-2 text-sm font-semibold text-orange-100 transition hover:bg-orange-400/20 active:scale-[0.98]"
           >
             <Fan size={16} aria-hidden="true" />
-            P2 comparar
+            Práctica 2
           </button>
         </div>
       </div>
 
       <div className="grid gap-5 xl:grid-cols-[minmax(320px,420px)_1fr]">
-        <Card title="Variables experimentales" subtitle={practice}>
+        <Card title="Variables de entrada" subtitle={practice}>
           <div className="space-y-4">
             <label className="block">
               <span className="mb-2 block text-sm font-semibold text-slate-200">
-                Nombre de simulacion
+                Nombre de la simulación
               </span>
               <input
-                className="h-11 w-full rounded-md border border-slate-700 bg-slate-950/70 px-3 text-sm text-slate-100"
+                className="h-11 w-full rounded-lg border border-slate-700/80 bg-slate-950/70 px-3 text-sm text-slate-100 transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/30"
                 value={simulationName}
                 onChange={(event) => setSimulationName(event.target.value)}
               />
@@ -207,7 +210,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
               <select className={selectClass} value={fluidId} onChange={(event) => setFluidId(event.target.value)}>
                 {FLUIDS.map((item) => (
                   <option key={item.id} value={item.id}>
-                    {item.name} - Pr={item.Pr}, k={item.k} W/m K
+                    {item.name} — Pr={item.Pr}, k={item.k} W/m·K
                   </option>
                 ))}
               </select>
@@ -224,24 +227,24 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
               error={validateNonNegative('Velocidad', velocity)}
             />
             <SliderInput
-              label="Longitud caracteristica"
+              label="Tamaño de la placa (longitud)"
               value={length}
               min={0.01}
               max={2}
               step={0.01}
               unit="m"
               onChange={setLength}
-              error={validatePositive('Longitud caracteristica', length)}
+              error={validatePositive('Longitud característica', length)}
             />
             <SliderInput
-              label="Area de placa"
+              label="Área de la placa"
               value={area}
               min={0.01}
               max={5}
               step={0.01}
-              unit="m2"
+              unit="m²"
               onChange={setArea}
-              error={validatePositive('Area', area)}
+              error={validatePositive('Área', area)}
             />
             <SliderInput
               label="Temperatura superficial"
@@ -249,7 +252,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
               min={-50}
               max={600}
               step={1}
-              unit="C"
+              unit="°C"
               onChange={setSurfaceC}
               error={validateCelsius('Temperatura superficial', surfaceC)}
             />
@@ -259,7 +262,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
               min={-50}
               max={300}
               step={1}
-              unit="C"
+              unit="°C"
               onChange={setFluidC}
               error={validateCelsius('Temperatura del fluido', fluidC)}
             />
@@ -269,7 +272,7 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
                 type="button"
                 onClick={saveActiveSimulation}
                 disabled={errors.length > 0}
-                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-500/18 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-500/25 disabled:cursor-not-allowed disabled:opacity-45"
+                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-cyan-300/40 bg-cyan-500/18 px-3 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-500/25 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45"
               >
                 <Save size={16} aria-hidden="true" />
                 Guardar
@@ -293,77 +296,81 @@ export function ConvectionModule({ loadedSimulation, onLoaded, onSave }: Convect
           />
           <div className="grid gap-4 md:grid-cols-3">
             <ResultCard
-              label="Transferencia Q"
-              value={errors.length ? 'Revise' : formatNumber(forcedQ, 2)}
+              label="Calor transferido (Q)"
+              value={errors.length ? INVALID : formatNumber(forcedQ, 2)}
               unit={errors.length ? undefined : 'W'}
               tone="cold"
               interpretation={
                 errors.length
-                  ? 'Hay variables fuera del rango fisico permitido.'
+                  ? INPUT_ERROR
                   : `Esta tasa equivale a ${formatNumber(Math.abs(forcedQ) / 1000, 3)} kW hacia el fluido.`
               }
             />
             <ResultCard
-              label="Coeficiente h"
-              value={errors.length ? 'Revise' : formatNumber(forcedResult?.h ?? 0, 3)}
-              unit={errors.length ? undefined : 'W/m2 K'}
+              label="Coeficiente de convección (h)"
+              value={errors.length ? INVALID : formatNumber(forcedResult?.h ?? 0, 3)}
+              unit={errors.length ? undefined : 'W/m²·K'}
               tone="warm"
-              interpretation="h resume la intensidad del intercambio convectivo."
+              interpretation="Cuanto mayor es h, más rápido se transfiere el calor entre la superficie y el fluido."
             />
             <ResultCard
-              label="Regimen"
-              value={errors.length ? 'Revise' : forcedResult?.regime ?? 'Sin datos'}
+              label="Régimen de flujo"
+              value={errors.length ? INVALID : forcedResult?.regime ?? 'Sin datos'}
               tone="rad"
-              interpretation={errors.length ? 'Corrija las entradas.' : `Re = ${formatNumber(forcedResult?.re ?? 0, 2)}`}
+              interpretation={
+                errors.length
+                  ? INPUT_ERROR
+                  : `Número de Reynolds: Re = ${formatNumber(forcedResult?.re ?? 0, 2)}`
+              }
             />
           </div>
         </div>
       </div>
 
       <div className="grid gap-5 xl:grid-cols-2">
-        <Card title="Perfil de enfriamiento" subtitle="Estimacion para placa de acero de 5 mm">
+        <Card title="Perfil de enfriamiento" subtitle="Estimación para placa de acero de 5 mm">
           <TemperatureProfileChart
             data={coolingProfile}
             series={[{ dataKey: 'temperatura', name: 'Temperatura', color: '#38bdf8' }]}
             xLabel="Tiempo"
-            yLabel="Temperatura (C)"
+            yLabel="Temperatura (°C)"
           />
         </Card>
-        <Card title="Comparacion entre fluidos" subtitle="Misma placa, velocidad y temperaturas">
+        <Card title="Comparación entre fluidos" subtitle="Misma placa, velocidad y temperaturas">
           <ComparisonBarChart data={comparisonData} dataKey="q" name="Q (W)" color="#f97316" />
         </Card>
       </div>
 
       <div className="grid gap-5 xl:grid-cols-2">
-        <Card title="Natural vs forzada" subtitle="Correlacion natural con aire y placa vertical">
+        <Card title="Natural vs forzada" subtitle="Correlación natural con aire y placa vertical">
           <div className="grid gap-4 md:grid-cols-2">
             <ResultCard
-              label="h natural"
-              value={errors.length ? 'Revise' : formatNumber(naturalResult?.h ?? 0, 3)}
-              unit={errors.length ? undefined : 'W/m2 K'}
+              label="Sin ventilación (natural)"
+              value={errors.length ? INVALID : formatNumber(naturalResult?.h ?? 0, 3)}
+              unit={errors.length ? undefined : 'W/m²·K'}
               tone="cold"
-              interpretation={naturalResult?.validity ?? 'Sin calculo.'}
+              interpretation={naturalResult?.validity ?? 'Completa los valores para calcular.'}
             />
             <ResultCard
-              label="h forzada"
-              value={errors.length ? 'Revise' : formatNumber(forcedResult?.h ?? 0, 3)}
-              unit={errors.length ? undefined : 'W/m2 K'}
+              label="Con ventilación (forzada)"
+              value={errors.length ? INVALID : formatNumber(forcedResult?.h ?? 0, 3)}
+              unit={errors.length ? undefined : 'W/m²·K'}
               tone="warm"
-              interpretation={forcedResult?.validity ?? 'Sin calculo.'}
+              interpretation={forcedResult?.validity ?? 'Completa los valores para calcular.'}
             />
           </div>
         </Card>
-        <Card title="Formula activa" subtitle={practice}>
+        <Card title="Fórmula activa" subtitle={practice}>
           <FormulaDisplay
-            title="Conveccion forzada en placa plana"
-            formula="Re = (rho * v * L) / mu; Nu = C * Re^n * Pr^(1/3); h = Nu * k / L; Q = h * A * (T_s - T_f)"
+            title="Convección forzada en placa plana"
+            formula="Re = (ρ * v * L) / μ; Nu = C * Re^n * Pr^(1/3); h = Nu * k / L; Q = h * A * (T_s - T_f)"
             substituted={`Re = ${formatNumber(forcedResult?.re ?? 0, 2)}; Nu = ${formatNumber(
               forcedResult?.nu ?? 0,
               2,
             )}; h = ${formatNumber(forcedResult?.h ?? 0, 3)}; Q = ${
-              errors.length ? 'entrada no valida' : `${formatNumber(forcedQ, 2)} W`
+              errors.length ? 'valores no válidos' : `${formatNumber(forcedQ, 2)} W`
             }`}
-            note={forcedResult?.validity ?? 'Complete las entradas para calcular.'}
+            note={forcedResult?.validity ?? 'Completa los valores para ver el cálculo.'}
           />
         </Card>
       </div>
