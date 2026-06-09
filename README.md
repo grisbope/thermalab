@@ -1,6 +1,8 @@
 # ThermaLab
 
-Laboratorio virtual de transferencia de calor para la asignatura de Transferencia de Calor de Ingenieria Quimica en la Universidad Tecnica de Manabi, periodo Abril-Agosto 2026.
+Laboratorio virtual de transferencia de calor para explorar conduccion, conveccion y radiacion de forma interactiva.
+
+**Desarrollador:** Grismaldo Bone Jr.
 
 La aplicacion permite explorar conduccion, conveccion y radiacion con entradas modificables, formulas con valores sustituidos, graficos cientificos, diagramas SVG animados, historial de practicas y descarga de resultados.
 

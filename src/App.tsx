@@ -73,15 +73,15 @@ function Dashboard({
     <div className="space-y-5">
       <section className="rounded-lg border border-slate-800 bg-slate-950/72 p-5 backdrop-blur md:p-6">
         <div className="thermal-strip mb-5 h-2 rounded-full" />
-        <Badge tone="neutral">Laboratorio virtual UTM</Badge>
+        <Badge tone="neutral">Laboratorio virtual</Badge>
         <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_320px] lg:items-end">
           <div>
             <h2 className="text-3xl font-black text-slate-50 md:text-4xl">
-              Transferencia de calor con simulacion interactiva
+              Explora la transferencia de calor en tiempo real
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
-              Panel academico para explorar conduccion, conveccion y radiacion con formulas visibles, datos reales,
-              graficos cientificos y practicas verificables.
+              Conduccion, conveccion y radiacion en un solo panel: formulas visibles, datos reales, graficos
+              cientificos y practicas que puedes guardar y exportar.
             </p>
           </div>
           <button
@@ -120,16 +120,19 @@ function Dashboard({
 
       <Card className="overflow-hidden border-cyan-300/25 bg-slate-950/78">
         <div className="thermal-strip -mx-5 -mt-5 mb-5 h-1.5 md:-mx-5" />
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="inline-flex items-center gap-2 rounded-md border border-cyan-300/30 bg-cyan-400/10 px-3 py-1.5 text-sm font-bold text-cyan-100">
               <Code2 size={16} aria-hidden="true" />
-              Desarrolladores
+              Desarrollador
             </div>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
-              V. C. Byron Esteban, T. L. Genanine Lizbeth, C. M. Jacksson Rolando, D. Q. Aland Michaelson
+            <p className="mt-3 text-lg font-bold tracking-tight text-slate-100">
+              Grismaldo Bone Jr.
             </p>
           </div>
+          <p className="max-w-sm text-sm leading-6 text-slate-400">
+            ThermaLab — herramienta educativa para visualizar mecanismos termicos sin hojas de calculo.
+          </p>
         </div>
       </Card>
 
@@ -303,7 +306,8 @@ export default function App() {
       </main>
       <BottomTabBar activeView={activeView} onNavigate={setActiveView} />
       <footer className="mx-auto flex max-w-7xl flex-col gap-2 px-4 pb-6 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:px-6">
-        <span>Transferencia de Calor - Universidad Tecnica de Manabi</span>
+        <span>ThermaLab — Transferencia de calor</span>
+        <span>Grismaldo Bone Jr.</span>
       </footer>
     </div>
   );

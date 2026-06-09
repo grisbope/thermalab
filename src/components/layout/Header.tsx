@@ -1,4 +1,4 @@
-import { Flame, GraduationCap } from 'lucide-react';
+import { Flame, Sparkles } from 'lucide-react';
 import type { ViewId } from '../../types';
 import { NAV_ITEMS } from './navigation';
 
@@ -22,8 +22,8 @@ export function Header({ activeView, onNavigate }: HeaderProps) {
             </h1>
             <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-slate-400">
               <span className="inline-flex items-center gap-1">
-                <GraduationCap size={14} aria-hidden="true" />
-                UTM Ingenieria Quimica
+                <Sparkles size={14} aria-hidden="true" />
+                Simulacion interactiva de transferencia de calor
               </span>
             </p>
           </div>
