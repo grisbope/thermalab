@@ -317,9 +317,8 @@ export default function App() {
         <section className="min-w-0">{content}</section>
       </main>
       <BottomTabBar activeView={activeView} onNavigate={setActiveView} />
-      <footer className="mx-auto flex max-w-7xl flex-col gap-2 px-4 pb-6 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:px-6">
+      <footer className="mx-auto max-w-7xl px-4 pb-6 text-xs text-slate-500 md:px-6">
         <span>ThermaLab — Transferencia de calor</span>
-        <span>{developers}</span>
       </footer>
     </div>
   );
