@@ -29,8 +29,7 @@ const moduleLabel: Record<Mechanism, string> = {
   radiation: 'Radiación',
 };
 
-const developers =
-  'Cedeño Macías Jacksson Rolando, Delgado Quiñonez Aland Michaelson, Loor Córdova María Yolanda, Rodríguez Sol Mildred Domenica, Tapia López Geanine Lizbeth, Velazco De la Cruz Byron Esteban';
+const developers = 'Velazco De la Cruz Byron Esteban';
 
 const moduleTone: Record<Mechanism, 'warm' | 'cold' | 'rad'> = {
   conduction: 'warm',
@@ -132,7 +131,7 @@ function Dashboard({
           <div>
             <div className="inline-flex items-center gap-2 rounded-lg border border-cyan-300/30 bg-cyan-400/10 px-3 py-1.5 text-sm font-bold text-cyan-100">
               <Code2 size={16} aria-hidden="true" />
-              Desarrolladores
+              Desarrollador
             </div>
             <p className="mt-3 text-sm font-semibold leading-relaxed tracking-tight text-slate-100">
               {developers}
